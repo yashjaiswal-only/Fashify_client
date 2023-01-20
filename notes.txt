@@ -1,0 +1,15 @@
+google font -urbanist
+npm i styled-components
+we can also get a div a className and define its css in css file , but creating styled-component gets option on same file
+
+materail ui 
+npm install @mui/material @emotion/react @emotion/styled --legacy-peer-deps
+npm install @mui/icons-material --legacy-peer-deps
+
+extension - vscode-styled-components
+
+in map the callback funtion ()=>(here does not contains return just a component)
+but ()=>{with this curly bracket , we need to write return }
+if you are using position absolute ,then parent should be position relative
+
+no use of dotenv in react all variable name starting with REACT_APP_NAME can be access by process.env.REACT_APP_NAME
