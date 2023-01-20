@@ -92,7 +92,7 @@ const Item=styled.div`
 const Navbar = () => {
     const cartcount = useSelector(state=>state.cart.count);//to visible in cart icon
     const user=useSelector(state=>state.user.currentUser);
-    const listcount=useSelector(state=>state.list.count)
+    const listcount=useSelector(state=>state.list.count);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -111,7 +111,7 @@ const Navbar = () => {
     }
     const options=[{label:'products'},{label:'men'},{label:'women'},{label:'shoe'},{label:'dress'},{label:'jeans'},{label:'tshirt'}]
     const onSearch=(e)=>{
-        console.log(e.target.value);
+        // console.log(e.target.value);
         if(e.target.value==='products') navigate(`/products`);
         else if(e.target.value) navigate(`/products/${e.target.value}`);
     }
@@ -134,9 +134,12 @@ const Navbar = () => {
                     <Search style={{color:'gray', fontSize:'1.7rem' }}/>  
                 </SearchContainer>
             </Left>
+
             <Center><Link to='/' className='link'>
                 {/* <LogoImage src='https://firebasestorage.googleapis.com/v0/b/shopping-app-5cbfc.appspot.com/o/shopping-cart-3d-render-icon-removebg-preview%20(1).png?alt=media&token=2c07b2b7-4d55-4991-b491-2842125e9538' /> */}
-                <Logo>Fashify</Logo></Link></Center>
+                <Logo>Fashify</Logo></Link>
+            </Center>
+
             <Right>
                 {
                     !user && 
@@ -177,7 +180,7 @@ const Navbar = () => {
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
                                 >
-                                <Avatar sx={{ width: 32, height: 32 }} src={user.avatar}></Avatar>
+                                <Avatar sx={{ width: 32, height: 32 }} src={user?user.avatar:""}></Avatar>
                                 </IconButton>
                             </Tooltip>
                         </Box>
@@ -217,7 +220,7 @@ const Navbar = () => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
                             <MenuItem onClick={()=>navigate('/profile')}>
-                            <Avatar src={user.avatar}/> Profile
+                            <Avatar src={user?user.avatar:""}/> Profile
                             </MenuItem>
                             <Divider />
                             <MenuItem onClick={()=>navigate('/wishlist')}>
