@@ -113,10 +113,10 @@ const Footer = () => {
       <Right>
             <Title>Contact</Title>
             <ContactItem><Room style={{marginRight:'10px'}}/>
-                   655 main road , lower parel, mumbai 110022
+                   655 main road , Lower Parel, Mumbai 110022
             </ContactItem>
             <ContactItem><Phone style={{marginRight:'10px'}}/>+91 8130060493</ContactItem>
-            <ContactItem><MailOutline style={{marginRight:'10px'}}/>yashjaiswalonly@gmail.com</ContactItem>
+            <ContactItem><MailOutline style={{marginRight:'10px'}}/><a className='link' href='mailto:yashjaiswalonly@gmail.com'>yashjaiswalonly@gmail.com</a></ContactItem>
             {/* <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScJIkuSDps4zB6vwB5aL67O15VersKEPb3PA&usqp=CAU" /> */}
             <Payment src="https://www.transparentpng.com/thumb/payment-method/WNusu8-payment-method-kinds-transparent-picture.png" alt="Payment Method Kinds Transparent Picture @transparentpng.com"/>
       </Right>

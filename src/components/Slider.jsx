@@ -85,7 +85,7 @@ const Slider = () => {
     if(!buttonClicked){
       setTimeout(() => {
         setSlideIndex((slideIndex+1)%3);
-      }, 2000);
+      }, 4000);
       console.log(slideIndex);
     }
     

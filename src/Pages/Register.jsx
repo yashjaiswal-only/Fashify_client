@@ -7,9 +7,10 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../firebase.js";
-import { register } from '../redux/apiCalls.js';
+import { register, userAvailable } from '../redux/apiCalls.js';
 import {  useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { CircularProgress } from '@mui/material';
 
 
 const Container=styled.div`
@@ -67,11 +68,14 @@ const Box=styled.div`
 const Error=styled.span`
     color:red;
   `
-  
+const Bottom=styled.div`
+  width: 100%;
+  display: flex; 
+`
 const Register = () => {
-
     const [inputs,setInputs]=useState({});
     const [file,setFile]=useState(null);
+    const [hasUsername,setHasUsername]=useState(false);
     const {isFetching ,error,currentUser} =useSelector(state=>state.user) ;
     //this method is save to protect from 'can't access properties of null 
 
@@ -81,8 +85,17 @@ const Register = () => {
       })
     }
     
-    const handleClick=e=>{
-      e.preventDefault();
+    
+      const handleClick=async e=>{
+        e.preventDefault();
+        const a=await userAvailable(inputs.username) //for getting response then move ahead
+        console.log(a);
+        if(a.data) {
+          setHasUsername(true);
+          return ;
+        }
+        else setHasUsername(false);
+        console.log('hii')
       if(file){
         const fileName=new Date().getTime()+file?file.name:'';  //to make file unique as when any file with same name upload later its gonna overwrite because of same name
         const storage=getStorage(app);
@@ -111,9 +124,10 @@ const Register = () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               const user = { ...inputs, avatar: downloadURL};
               // console.log(downloadURL)
-              console.log(user)
-              register(dispatch,user);
-              if(currentUser && !error)navigate(-1)
+              console.log(user);
+              console.log('registering')
+              const res=register(dispatch,user);
+              if(res)navigate('/login',{state:{newlyRegister:true}});
             });
           }
         );
@@ -121,8 +135,8 @@ const Register = () => {
       else{
         const user={...inputs};
         console.log(user)
-        register(dispatch,user);
-        if(currentUser && !error) navigate(-1)
+        const res=register(dispatch,user);
+        if(res)navigate('/login',{state:{newlyRegister:true}});
       }
     }
     const dispatch=useDispatch();
@@ -146,8 +160,12 @@ const Register = () => {
                 <Agreement>
                     By creating an account , I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
                 </Agreement>
-                <Button onClick={handleClick}>CREATE</Button>
+                <Bottom>
+                  <Button onClick={handleClick} disabled={isFetching}>CREATE</Button>
+                  {isFetching && <CircularProgress />}
+                </Bottom>
                 {error && <Error>Something went wrong....</Error>}
+                {hasUsername && <Error>Username already exist</Error>}
 
             </Form>
         </Wrapper>

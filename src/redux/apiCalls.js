@@ -36,7 +36,6 @@ export const login= async (dispatch,user)=>{
         // console.log(user);
         const res=await publicRequest.post('/auth/login',user)
         // console.log(res);
-        await dispatch(loginSuccess(res.data))
         
         const config={
             headers:{
@@ -83,7 +82,7 @@ export const login= async (dispatch,user)=>{
                 userId:res.data._id,
                 // products:[]
             }
-            const url2=`http://localhost:5000/api/wishlist/${res.data._id}`;
+            const url2=BASE_URL+`/wishlist/${res.data._id}`;
             await axios.post(url2,body,config)
             .then(res=>{
                 userlist=res
@@ -104,6 +103,8 @@ export const login= async (dispatch,user)=>{
         .catch(err=>console.log(err))
         dispatch(createOrder(orderslist.data));
         
+        await dispatch(loginSuccess(res.data))
+
         // console.log('loginSuccess');
         return res;
     }
@@ -117,13 +118,27 @@ export const register= async (dispatch,user)=>{//just api calling no redux invol
     dispatch(loginStart());
     try{
         const res=await publicRequest.post('/auth/register',user)
-        dispatch(loginSuccess());
+        dispatch(loginSuccess(res.data));
+        //we can't have auth token here , so login is required after registering
+        return res;
     }
     catch(err){
         dispatch(loginFailure());
         console.log(err)
     }
 }
+
+export const userAvailable= async (username)=>{//just api calling no redux involve
+    try{
+        const res=await publicRequest.post('/auth/find',{username})
+        // console.log(res);
+        return res;
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 //cart schema is {userId,product[productId,quantity of each product]}
 export const addToCart= async (dispatch,userId,products,updatedtotal,accessToken)=>{
     // console.log('add to cart')

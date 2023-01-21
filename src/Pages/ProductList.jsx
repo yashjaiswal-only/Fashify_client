@@ -10,7 +10,7 @@ import { Tooltip } from "@mui/material"
 import { RemoveCircleOutline } from "@mui/icons-material"
 
 const Container = styled.div`
-
+   
 `
 const Title = styled.h1`
     margin: 20px;
@@ -63,8 +63,10 @@ const ProductList = () => {
 
     const [filters,setFilters]=useState({});
     const [sort,setSort]=useState("newest");
+    const [hasFilter,setHasFilter]=useState(false);
 
     const handleFilters=(e)=>{
+        setHasFilter(true);
         const value=e.target.value;
         setFilters({
             ...filters,      //to append filter (size + color)
@@ -77,6 +79,7 @@ const ProductList = () => {
         selecteditem[0].options.selectedIndex=0;
         selecteditem[1].options.selectedIndex=0;
         setFilters({});
+        setHasFilter(false);
     }
 
     //to get to top on rendering
@@ -131,7 +134,7 @@ const ProductList = () => {
             </Filter>
         </FilterContainer>
 
-        {cat?<Products cat={cat} filters={filters} sort={sort} />:<Products all={true} filters={filters} sort={sort} />}
+        {cat?<Products cat={cat} filters={filters} sort={sort} hasFilter={hasFilter}/>:<Products all={true} filters={filters} sort={sort} hasFilter={hasFilter}/>}
     </Container>
         {/* <Newsletter/> */}
         <Footer/>

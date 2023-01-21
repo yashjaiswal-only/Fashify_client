@@ -65,8 +65,10 @@ const Container=styled.div`
     display:flex;
     align-items: center;
     justify-content: center;
-    background-color:#f5f7dd;
+    background-color:#fff8f8;
     position:relative;
+    -webkit-box-shadow: 0px 0px 10px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
     &:hover ${Info}{
         opacity:1;  
     }

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { login } from '../redux/apiCalls'
-import { loginSuccess } from '../redux/userRedux'
-import { Tooltip } from "@mui/material"
+import { CircularProgress, Tooltip } from "@mui/material"
 
 
 const Container=styled.div`
@@ -24,7 +23,12 @@ const Container=styled.div`
 const Wrapper=styled.div`
     padding: 20px;
     width:25%;
+    min-width:15rem;
     background-color:white;
+`
+const New=styled.span`
+  font-size: 1rem;
+  color:blue;
 `
 const Title=styled.h1`
     font-size: 24px;
@@ -41,7 +45,10 @@ const Input=styled.input`
     margin: 10px 0px;
     padding: 10px;
 `
-
+const Bottom=styled.div`
+  width: 100%;
+  display: flex; 
+`
 const Button=styled.button`
     width:40%;
     border:none;
@@ -49,6 +56,7 @@ const Button=styled.button`
     background-color:teal;
     color:white;
     cursor:pointer;
+    margin-right:2rem;
     &:disabled{
       color:green;
       cursor:not-allowed;
@@ -59,7 +67,7 @@ const Link=styled.a`
     font-size: 12px;
     text-decoration:underline;
     cursor:pointer;
-    `
+`
 
 const Error=styled.span`
     color:red;
@@ -69,24 +77,29 @@ const Login = () => {
   const [password,setPassword]=useState('');
   const dispatch =useDispatch();
   const navigate=useNavigate();
+  const location=useLocation();
   const {isFetching ,error,currentUser} =useSelector(state=>state.user) ;
   /* get these redux variables from redux named user */
   const handleClick= async e=>{
     e.preventDefault();
      const res=await login(dispatch,{username,password});
       // await console.log(res);
-     if(res)  navigate(-1); //if successfully login then only , otherwise its returning res=undefined
+     if(res)  navigate(newlyRegister?-2:-1); //if successfully login then only , otherwise its returning res=undefined
   }
-
+  // console.log(location)  // we have a state in location 
+  const newlyRegister=location.state?location.state.newlyRegister:null;
   return ( 
     <Container>
       <Wrapper>
             <Title >SIGN IN</Title>
+            {newlyRegister && <New>You are successfully registered . Please Login to continue</New>}
             <Form>
                 <Input placeholder="username"  onChange={e=>setUsername(e.target.value)}/>
                 <Input placeholder="password" onChange={e=>setPassword(e.target.value)} type='password'/>
-                
-                <Button onClick={handleClick} disabled={isFetching} >LOGIN</Button>
+                <Bottom>
+                  <Button onClick={handleClick} disabled={isFetching} >LOGIN</Button>
+                  {isFetching && <CircularProgress />}
+                </Bottom>
                 {error && <Error>Something went wrong....</Error>}
                 <Link to='/register' className='link'>CREATE A NEW ACCOUNT</Link>
                 <Tooltip title='Contact Admin'><Link>DO NOT YOU REMEMBER THE PASSWORD?</Link></Tooltip>

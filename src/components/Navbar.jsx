@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Search} from '@mui/icons-material'
+import { Login, Search} from '@mui/icons-material'
 // import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Logout} from '@mui/icons-material'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { Badge ,Box,Avatar,Menu,MenuItem,ListItemIcon,Tooltip,Divider,IconButton,TextField,Autocomplete} from '@mui/material'
-import { logoutSuccess } from '../redux/userRedux.js';
+import { authStarts, logoutSuccess } from '../redux/userRedux.js';
 import { clearCart } from '../redux/cartRedux.js';
 import { clearList } from '../redux/listRedux.js';
 import { clearOrder } from '../redux/orderRedux.js';
@@ -94,6 +94,30 @@ const Item=styled.div`
     margin-left: 25px;
     text-decoration-line:none;
 `
+const Button1=styled.button`
+    font-size: 1.2rem;
+    color:#6e6d7a;
+    background:none;
+    display: flex;
+    cursor:pointer;
+    padding: 6px 10px;
+    border-radius:8px;  
+    border:none;
+    /* &:hover{
+        border-width:1px;
+        border-color:gray;
+    } */
+    `
+const Button2=styled.button`
+cursor:pointer;
+    font-size: 1.1rem;
+    color:white;    
+    padding: 8px 12px;
+    background:#ea4c89;
+    border:none;
+    border-radius:8px;  
+`
+
 const Navbar = () => {
     const cartcount = useSelector(state=>state.cart?state.cart.count:state.cart);//to visible in cart icon
     const user=useSelector(state=>state.user?state.user.currentUser:state.user);
@@ -152,8 +176,13 @@ const Navbar = () => {
                 {
                     !user && 
                     <>
-                    <Link className='link' to="/register"><Item>Register</Item></Link> 
-                    <Link className='link' to='/login'><Item>SignIn</Item></Link>
+                    <Link className='link' to='/login' >
+                        <Item  onClick={()=>dispatch(authStarts())}>
+                            <Button1><img src={require('./login-icon-3048.png')} style={{height:'1.2rem'}}/>Sign in</Button1></Item>
+                    </Link>
+                    <Link className='link' to="/register">
+                        <Item onClick={()=>dispatch(authStarts())}><Button2>Sign up</Button2></Item>
+                    </Link> 
                     </>
                 }
                 
