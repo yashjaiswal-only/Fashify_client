@@ -64,7 +64,7 @@ const Link=styled.a`
 const Error=styled.span`
     color:red;
   `
-const Login = ({setBack}) => {
+const Login = () => {
   const [username,setUsername]=useState('');
   const [password,setPassword]=useState('');
   const dispatch =useDispatch();
@@ -88,12 +88,12 @@ const Login = ({setBack}) => {
                 
                 <Button onClick={handleClick} disabled={isFetching} >LOGIN</Button>
                 {error && <Error>Something went wrong....</Error>}
-                <Tooltip tooltip='Contact Admin'><Link>DO NOT YOU REMEMBER THE PASSWORD?</Link></Tooltip>
                 <Link to='/register' className='link'>CREATE A NEW ACCOUNT</Link>
+                <Tooltip title='Contact Admin'><Link>DO NOT YOU REMEMBER THE PASSWORD?</Link></Tooltip>
             </Form>
         </Wrapper>
     </Container>
   )
 }
 
-export default Login
+export default Login;

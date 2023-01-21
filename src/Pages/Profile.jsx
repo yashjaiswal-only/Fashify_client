@@ -38,7 +38,7 @@ const BackBtn =styled.button`
 `
 const Profile = () => {
 
-    const user=useSelector(state=>state.user.currentUser);
+    const user=useSelector(state=>state.user?state.user.currentUser:state.user);
     const [file,setFile]=useState();
     const [inputs,setInputs]=useState({});
     const dispatch=useDispatch(); 

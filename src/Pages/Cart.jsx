@@ -13,13 +13,11 @@ import {PayPalButton} from 'react-paypal-button-v2'
 
 const Cart = () => {
     const cart = useSelector(state=>state.cart)
-    const user= useSelector(state=>state.user.currentUser)
+    const user= useSelector(state=>state.user?state.user.currentUser:state.user)
     const list=useSelector(state=>state.list)
-    const orders=useSelector(state=>state.order.orders);
+    const orders=useSelector(state=>state.order?state.order.orders:state.order);
 
-    // console.log(user)
     const dispatch=useDispatch();
-    // console.log(cart.products)
     const deleteProduct=(deletedId,cost)=>{
         console.log(deletedId)
         const updatedProducts=cart.products.filter(p=>p.stamp!=deletedId)
@@ -91,18 +89,20 @@ const Cart = () => {
             <Top>
                 <TopButton onClick={continueShopping}>CONTINUE SHOPPING</TopButton>
                 <TopTexts>
-                    <TopText><Link className="link" to='/orders'>Shopping Bag({orders.length})</Link></TopText>
-                    <TopText><Link className="link" to='/wishlist'>Your Wishlist ({list.count})</Link></TopText>
+                    <TopText><Link className="link" to='/orders'>Shopping Bag({orders?orders.length:0})</Link></TopText>
+                    <TopText><Link className="link" to='/wishlist'>Your Wishlist ({list?list.count:0})</Link></TopText>
                 </TopTexts>
                 <TopButton type="filled" onClick={()=>setPay(true)}>CHECKOUT NOW</TopButton>
             </Top>
             <Bottom> 
                 <Info>
-                    {!cart.products.length && 
+                    {/* cart hi na ho ya fir cart me product na ho product ki length zero ho */}
+                    {(!cart || !cart.products.length)?
                         <Empty><img src='https://media3.giphy.com/media/ZgTR3UQ9XAWDvqy9jv/giphy.gif?cid=ecf05e47qz6j91e2q09taunficy2vuit86oyl1qvja18uzb6&rid=giphy.gif&ct=g' /> 
                         <NoOrders>Your Cart is empty ! </NoOrders></Empty>
-                    }
-                    {cart.products.length && cart.products.map((product)=>(
+                    :null} 
+                    {/* use real conditional operator for conditional render , not and or */}
+                    {(cart && cart.products.length)?cart.products.map((product)=>(
                         <Product key={product.stamp}>
                         <ProductDetail>
                             <Image src={product.img} />
@@ -133,32 +133,34 @@ const Cart = () => {
                                 </Tooltip>
                             </DeleteIcon>
                         </Product>
-                        ))}
+                        )):null}
                     <Hr />
                     
                 </Info>
                 
-                {cart.products.length && <Summary>
-                    <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-                    <SummaryItem>
-                    <SummaryItemText>Subtotal</SummaryItemText>
-                    <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-                    </SummaryItem>
-                    <SummaryItem>
-                    <SummaryItemText>Estimated Shipping</SummaryItemText>
-                    <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-                    </SummaryItem>
-                    <SummaryItem>
-                    <SummaryItemText>Shipping Discount</SummaryItemText>
-                    <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-                    </SummaryItem>
-                    <SummaryItem type="total">
-                    <SummaryItemText>Total</SummaryItemText>
-                    <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-                    </SummaryItem>
-                        {/* <PayPalButton amount={cart.total} onSuccess={paymentSuccess}/> */}
-                    <Button onClick={()=>setPay(true)}>CHECKOUT NOW</Button>
-                </Summary>}
+                {(cart && cart.products.length)?
+                    <Summary>
+                        <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                        <SummaryItem>
+                        <SummaryItemText>Subtotal</SummaryItemText>
+                        <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+                        </SummaryItem>
+                        <SummaryItem>
+                        <SummaryItemText>Estimated Shipping</SummaryItemText>
+                        <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+                        </SummaryItem>
+                        <SummaryItem>
+                        <SummaryItemText>Shipping Discount</SummaryItemText>
+                        <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                        </SummaryItem>
+                        <SummaryItem type="total">
+                        <SummaryItemText>Total</SummaryItemText>
+                        <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+                        </SummaryItem>
+                            {/* <PayPalButton amount={cart.total} onSuccess={paymentSuccess}/> */}
+                        <Button onClick={()=>setPay(true)}>CHECKOUT NOW</Button>
+                    </Summary>
+                :null}
             </Bottom>
         </Wrapper>
         <Footer/>
@@ -185,7 +187,7 @@ const CancelPayment =styled.button`
     background: none;
     font-weight: 600;
     font-size: 1rem;
-    border-radius:1rem
+    border-radius:1rem;
 `
 const Payment=styled.div`
     /* top:0; */

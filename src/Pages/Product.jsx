@@ -9,15 +9,13 @@ import { useEffect, useState } from "react"
 import { publicRequest } from "../requestMethod"
 import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../redux/apiCalls"
-// const dotenv =require('dotenv').config()
 
 const Product = () => {
-    // const BASE_URL=process.env.REACT_APP_BASE_URL;
-    // console.log(BASE_URL)
     const location = useLocation();
     const id=location.pathname.split("/")[2];
-    const productsInCart=useSelector(state=>state.cart.products);
-    const total=useSelector(state=>state.cart.total);
+    const productsInCart=useSelector(state=>state.cart?state.cart.products:state.cart);
+    const total=useSelector(state=>state.cart?state.cart.total:state.cart);
+    const user=useSelector(state=>state.user?state.user.currentUser:state.user); 
     const [quantity,setQuantity]=useState(1);
     const [product,setProduct]=useState({});
     const [color,setColor]=useState();
@@ -29,8 +27,6 @@ const Product = () => {
     const dispatch=useDispatch();
     const handleClick=()=>{
         //update cart
-        // console.log(new Date().getSeconds())
-        // console.log(new Date().getSeconds()+product._id)
         if(user){
             const choosenProduct={
                 stamp:new Date().getSeconds()+new Date().getTime()+product._id,//to differentiate 2 products added seperately
@@ -44,9 +40,8 @@ const Product = () => {
             };
             const cost=choosenProduct.price*choosenProduct.quantity;
             const updatedProducts=[...productsInCart,{...choosenProduct}];
-            // console.log('at product')
-            // console.log(updatedProducts)
-            addToCart(dispatch,user._id,updatedProducts,total+cost,user.accessToken) //color is size is monotonic till there its not including in product to add to cart
+            addToCart(dispatch,user._id,updatedProducts,total+cost,user.accessToken) 
+            //color is size is monotonic till there its not including in product to add to cart
                 
         }
     }
@@ -68,11 +63,11 @@ const Product = () => {
         window.scrollTo(0, 0)
     }, [])
     
-    const user=useSelector(state=>state.user.currentUser); 
     const [warning,setWarning]=useState(false);
     const makeWarning=()=>setWarning(user?false:true) ;
     const removeWarning=()=>setWarning(false) ;
     const navigate=useNavigate(-1);
+    
   return ( 
     <Container>
         <Navbar />

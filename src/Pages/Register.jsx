@@ -73,7 +73,7 @@ const Register = () => {
     const [inputs,setInputs]=useState({});
     const [file,setFile]=useState(null);
     const {isFetching ,error,currentUser} =useSelector(state=>state.user) ;
-
+    //this method is save to protect from 'can't access properties of null 
 
     const handleChange=e=>{
       setInputs(prev=>{

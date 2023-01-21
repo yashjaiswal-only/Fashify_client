@@ -9,11 +9,12 @@ import { Link, useNavigate } from 'react-router-dom'
 
 
 const Orders = () => {
-  const orders=useSelector(state=>state.order.orders);
+  const orders=useSelector(state=>state.order?state.order.orders:state.order);
   const list=useSelector(state=>state.list)
   // console.log(orders)
-    //to get to top on rendering
-    useEffect(() => { 
+
+  //to get to top on rendering
+  useEffect(() => { 
       window.scrollTo(0, 0)
     }, [])
   const navigate=useNavigate();
@@ -26,11 +27,12 @@ const Orders = () => {
               <BackBtn onClick={()=>navigate('/')}>Home</BackBtn>
               <Title>Your Orders</Title>
           </Top>
-        {orders.length===0 && <Bottom><img src='https://media3.giphy.com/media/ZgTR3UQ9XAWDvqy9jv/giphy.gif?cid=ecf05e47qz6j91e2q09taunficy2vuit86oyl1qvja18uzb6&rid=giphy.gif&ct=g' /> <NoOrders>No Orders Now ! </NoOrders></Bottom>
-        }
-        {orders && orders.slice().reverse().map(order=>//orders is read only , first copy then reverse
+        {orders.length===0 ? <Bottom><img src='https://media3.giphy.com/media/ZgTR3UQ9XAWDvqy9jv/giphy.gif?cid=ecf05e47qz6j91e2q09taunficy2vuit86oyl1qvja18uzb6&rid=giphy.gif&ct=g' /> <NoOrders>No Orders Now ! </NoOrders></Bottom>
+        :null}
+        {orders ? orders.slice().reverse().map(order=>//orders is read only , first copy then reverse
             <Order key={order._id} order={order}/>
-          )}
+          )
+        :null}
       </Container>
       <Footer/>
     </>

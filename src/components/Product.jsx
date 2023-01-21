@@ -75,13 +75,14 @@ const Container=styled.div`
 const Product = ({item}) => {
     
     const [hover,setHover]=useState(false);
-    const user=useSelector(state=>state.user.currentUser); 
+    const user=useSelector(state=>state.user?state.user.currentUser:state.user); 
+    const productsInCart=useSelector(state=>state.cart?state.cart.products:state.cart);
+    const productsInList=useSelector(state=>state.list?state.list.products:state.list);
+    const total=useSelector(state=>state.cart?state.cart.total:state.cart);
     const [warning,setWarning]=useState(false);
     const makeWarning=()=>setWarning(user?false:true) ;
     const removeWarning=()=>setWarning(false) ;
-    const productsInCart=useSelector(state=>state.cart.products);
-    const productsInList=useSelector(state=>state.list.products);
-    const total=useSelector(state=>state.cart.total);
+
     const quantity=1;
     const dispatch=useDispatch();
     const handleClick=(product)=>{
