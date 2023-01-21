@@ -4,7 +4,7 @@ import { Search} from '@mui/icons-material'
 // import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
-// import {mobile} from "../responsive.js"
+import {mobile} from "../responsive.js"
 import {useDispatch, useSelector} from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { Logout} from '@mui/icons-material'
@@ -17,68 +17,73 @@ import { clearOrder } from '../redux/orderRedux.js';
 
 /* this is a styled-component */
 const Container = styled.div`   
-    height:60px;
+    height:3.5rem;
     background-color: white;
     position:sticky;
     padding: 0;
     top: 0;
-    /* width: 100%; */
+    width: 100vw;
     z-index:900;
-    `
-    /* ${mobile({
-        height:"30px",
-        backgroundColor:"red"
-    })} */
+    display: flex; justify-content: center;
+    ${mobile({
+        // height:"30px",
+        // backgroundColor:"red"
+    })}
+`
 const Wrapper=styled.div`
-    padding:10px 20px;
+    padding:0rem 2rem;
+    height: 100%;
+    width: 95%;
     display:flex;
     justify-content:space-between;
+    ${mobile({
+        padding:"0rem 1rem"  
+    })}
     `;
-    /* ${mobile({
-        padding:"10px 0px"
-    })} */
 const Left=styled.div`
-    flex:1;
+    flex-shrink:1;
     display:flex;
     align-items:center;
+    ${mobile({
+        display:'none'
+    })}
 `;
 const LanguageSelector=styled.div`
     font-size:14;
     cursor:pointer;
+    ${mobile({
+        display:"none"
+    })}
 `
-    // ${mobile({
-    //     display:"none"
-    // })}
 const SearchContainer=styled.div`
     display:flex;
     align-items:center;
-    /* border:0.5px solid lightgray; */
     border:none;
-    margin-left:25px;
-    /* padding:2px; */
+    margin-left:2rem;
     height: 40px;
+   
 `
-const Input=styled.input`
-    border:none;
+const SearchInput=styled.input`
+
 `
-    // ${mobile({
-    //     width:"50px"
-    // })}
 const Center=styled.div`
-    flex:1;
+    flex-shrink:1;
     text-align:center;
-    `;
+    display: flex;
+    align-items: center;
+`;
 const Logo=styled.h1`
     font-weight:bold;
-    background: #3268C7;
-    background: linear-gradient(to bottom left, #3268C7 0%, #CF1512 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: #33CF04;
+background: linear-gradient(to bottom right, #33CF04 0%, #000ECF 77%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
 `
 const LogoImage=styled.img`
 `
 const Right=styled.div`
-    flex:1;
+    flex-shrink:2;
     display:flex;
     align-items:center; 
     justify-content:flex-end;
@@ -127,9 +132,12 @@ const Navbar = () => {
                         id="free-solo-demo"
                         freeSolo
                         options={options}
-                        sx={{ width: 150, height:30}}
+                        sx={{ width: '10rem', height:'90%' }}
+                        
                         renderInput={(params) =>
-                             <TextField className='input' sx={{padding:0}}  size="small" {...params} onSelect={(e)=>onSearch(e)} label="Search" />}
+                             <TextField className='input' sx={{padding:0,margin:0}}  size="small" {...params} onSelect={(e)=>onSearch(e)} label="Search" />
+                                // <SearchInput label="Search" className='input' {...params} onSelect={(e)=>onSearch(e)}/>
+                            }
                     />
                     <Search style={{color:'gray', fontSize:'1.7rem' }}/>  
                 </SearchContainer>
@@ -249,8 +257,8 @@ const Navbar = () => {
                 }
             </Right>
         </Wrapper>
-        </Container>
-        )
+    </Container>
+    )
 }
 
 export default Navbar;

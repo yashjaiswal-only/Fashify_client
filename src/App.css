@@ -3,21 +3,12 @@
     cursor:pointer;
     color:inherit;
 }
-/* .input{
-    padding: 0!important;
-    margin: 0;
-    height: 25px;
-} */
-/* .input>input{
-    background-color: aqua !important;
-} */
-.css-1l8n7di-MuiAutocomplete-root .MuiOutlinedInput-root {
-    padding: 0px !important;
-    height: 98% !important;
+
+.css-8d2q90-MuiFormControl-root-MuiTextField-root{
+  height: 2rem;
 }
-.css-1l8n7di-MuiAutocomplete-root .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
-    width: 0;
-    min-width: 20px;
+.css-mqfiuq-MuiAutocomplete-root .MuiOutlinedInput-root{
+  padding: 1px !important;
 }
 
 .user {

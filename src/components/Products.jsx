@@ -27,7 +27,6 @@ const Products = ({cat,filters,sort,home,all}) => {
 
   const [products,setProducts]=useState([]);
   const [filteredproducts,setFilteredProducts]=useState([]);
-
   useEffect(()=>{
     const getProducts = async ()=>{
       try {
@@ -65,7 +64,6 @@ const Products = ({cat,filters,sort,home,all}) => {
     }
   }, [sort]);
 
-  // console.log(filters)
   return (
     <Container>
           { cat &&  filteredproducts.map((item)=>(<Product key={item._id} item={item}   /> ))}

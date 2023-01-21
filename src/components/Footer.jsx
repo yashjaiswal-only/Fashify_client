@@ -15,10 +15,10 @@ const Left=styled.div`
     `
 const Logo=styled.div`
     font-size: 30px;
-    background: #3268C7;
-background: linear-gradient(to bottom left, #3268C7 0%, #CF1512 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+    background: #33CF04;
+    background: linear-gradient(to bottom right, #33CF04 0%, #000ECF 77%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     `
 const Desc=styled.div`
     /* margin:10px 0px; */
