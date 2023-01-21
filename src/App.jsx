@@ -16,8 +16,8 @@ import './App.css'
 import Wishlist from "./Pages/Wishlist";
 
 const App = () => {
-  const user=useSelector(state=>state.user.currentUser);
-  // console.log(process.env.REACT_APP_BASE_URL+'/api/user');
+  // const user=useSelector(state=>state.user.currentUser); 
+  //no use of user and on first render of site user is not created and we are using its property currentUser
   return (
     <Router>
       <Routes>

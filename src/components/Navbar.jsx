@@ -4,7 +4,7 @@ import { Search} from '@mui/icons-material'
 // import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
-import {mobile} from "../responsive.js"
+// import {mobile} from "../responsive.js"
 import {useDispatch, useSelector} from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { Logout} from '@mui/icons-material'
@@ -24,19 +24,19 @@ const Container = styled.div`
     top: 0;
     /* width: 100%; */
     z-index:900;
-    ${mobile({
+    `
+    /* ${mobile({
         height:"30px",
         backgroundColor:"red"
-    })}
-`
+    })} */
 const Wrapper=styled.div`
     padding:10px 20px;
     display:flex;
     justify-content:space-between;
+    `;
     /* ${mobile({
         padding:"10px 0px"
     })} */
-`;
 const Left=styled.div`
     flex:1;
     display:flex;
@@ -45,10 +45,10 @@ const Left=styled.div`
 const LanguageSelector=styled.div`
     font-size:14;
     cursor:pointer;
-    ${mobile({
-        display:"none"
-    })}
 `
+    // ${mobile({
+    //     display:"none"
+    // })}
 const SearchContainer=styled.div`
     display:flex;
     align-items:center;
@@ -60,10 +60,10 @@ const SearchContainer=styled.div`
 `
 const Input=styled.input`
     border:none;
-    ${mobile({
-        width:"50px"
-    })}
 `
+    // ${mobile({
+    //     width:"50px"
+    // })}
 const Center=styled.div`
     flex:1;
     text-align:center;
@@ -90,9 +90,10 @@ const Item=styled.div`
     text-decoration-line:none;
 `
 const Navbar = () => {
-    const cartcount = useSelector(state=>state.cart.count);//to visible in cart icon
-    const user=useSelector(state=>state.user.currentUser);
-    const listcount=useSelector(state=>state.list.count);
+    const cartcount = useSelector(state=>state.cart?state.cart.count:state.cart);//to visible in cart icon
+    const user=useSelector(state=>state.user?state.user.currentUser:state.user);
+    const listcount=useSelector(state=>state.list?state.list.count:state.list);
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -109,6 +110,7 @@ const Navbar = () => {
          dispatch(clearCart());
          dispatch(clearOrder());
     }
+
     const options=[{label:'products'},{label:'men'},{label:'women'},{label:'shoe'},{label:'dress'},{label:'jeans'},{label:'tshirt'}]
     const onSearch=(e)=>{
         // console.log(e.target.value);
@@ -121,8 +123,6 @@ const Navbar = () => {
             <Left>
                 <LanguageSelector>EN</LanguageSelector>
                 <SearchContainer >
-                    {/* <Input placeholder='search'/> */}
-                    {/*  <TextField {...params} size="small" label="Search" /> */}
                     <Autocomplete
                         id="free-solo-demo"
                         freeSolo
@@ -160,6 +160,7 @@ const Navbar = () => {
                         </Link>
                     </Item>
                     </Tooltip>
+
                     <Tooltip title='Your Cart'> 
                     <Item>
                         <Link to="/cart">
@@ -169,6 +170,7 @@ const Navbar = () => {
                         </Link>
                     </Item>
                     </Tooltip>
+
                     <Item>
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
@@ -251,4 +253,4 @@ const Navbar = () => {
         )
 }
 
-export default Navbar
+export default Navbar;
