@@ -10,7 +10,12 @@
 .css-mqfiuq-MuiAutocomplete-root .MuiOutlinedInput-root{
   padding: 1px !important;
 }
-
+.css-9iq7ar .MuiOutlinedInput-root {
+  padding: 1px !important;
+}
+.MuiOutlinedInput-root {
+  padding: 1px !important;
+}
 .user {
     flex: 4;
     padding: 20px;
