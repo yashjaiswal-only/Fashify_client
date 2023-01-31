@@ -36,6 +36,16 @@ const BackBtn =styled.button`
         background-color: #f8f4f4;
     }
 `
+const Bottom =styled.div`
+  display: flex;
+  justify-content: space-around;
+`
+const NoOrders=styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 600;
+`
 const Profile = () => {
 
     const user=useSelector(state=>state.user?state.user.currentUser:state.user);
@@ -96,8 +106,8 @@ const Profile = () => {
       <Navbar/>
       <Announcement/>
       <BackBtn onClick={()=>navigate('/')}>Back</BackBtn>
-      <Container>
-
+      {user && <Container>
+      
       <div className="userContainer">
           <div className="userShow">
             <div className="userShowTop">
@@ -200,7 +210,10 @@ const Profile = () => {
             </form>
           </div>
         </div>
-      </Container>
+      </Container>}
+      {!user ? 
+      <Bottom><img src='https://media3.giphy.com/media/ZgTR3UQ9XAWDvqy9jv/giphy.gif?cid=ecf05e47qz6j91e2q09taunficy2vuit86oyl1qvja18uzb6&rid=giphy.gif&ct=g' /> <NoOrders>Login to see your account details ! </NoOrders></Bottom>
+        :null}
       <Footer/>
     </>
   )

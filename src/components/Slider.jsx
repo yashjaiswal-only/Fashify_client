@@ -1,4 +1,6 @@
 import { ArrowLeft, ArrowRight } from '@mui/icons-material'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { sliderItems } from '../data'
@@ -14,7 +16,8 @@ const Arrow = styled.div`
     width:50px;
     height:50px;
     border-radius:50%;
-    background-color: #fff7f7 ;
+    background-color: black ;
+    color:white;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +28,7 @@ const Arrow = styled.div`
     left:${props=>props.direction==='left' && "10px"};
     right:${props=>props.direction==='right' && "10px"};
     cursor:pointer;
-    opacity:0.5;
+    opacity:0.1;
     z-index:2;
 `
 
@@ -94,7 +97,8 @@ const Slider = () => {
   return (
     <Container>
       <Arrow direction="left" onClick={()=>handleClick('left')}>
-        <ArrowLeft />
+        {/* <ArrowLeft /> */}
+        <ArrowBackIosNewIcon/>
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
           {sliderItems.map((item)=>(
@@ -113,7 +117,8 @@ const Slider = () => {
           ))}
       </Wrapper>
       <Arrow direction="right" onClick={()=>handleClick('right')}>
-        <ArrowRight />
+        {/* <ArrowRight /> */}
+        <ArrowForwardIosIcon/>
       </Arrow>
     </Container>
   )

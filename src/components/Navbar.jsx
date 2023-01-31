@@ -6,7 +6,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import {mobile} from "../responsive.js"
 import {useDispatch, useSelector} from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Logout} from '@mui/icons-material'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { Badge ,Box,Avatar,Menu,MenuItem,ListItemIcon,Tooltip,Divider,IconButton,TextField,Autocomplete} from '@mui/material'
@@ -130,6 +130,8 @@ const Navbar = () => {
     };
     const dispatch=useDispatch();
     const navigate=useNavigate();
+    const location=useLocation();
+    console.log(location)
     const handleClose = () => {
          setAnchorEl(null);
     };
@@ -138,6 +140,7 @@ const Navbar = () => {
          dispatch(logoutSuccess());
          dispatch(clearCart());
          dispatch(clearOrder());
+        if(location.pathname==='/profile')  navigate(-1);   //no profile section without login
     }
 
     const options=[{label:'products'},{label:'men'},{label:'women'},{label:'shoe'},{label:'dress'},{label:'jeans'},{label:'tshirt'}]
