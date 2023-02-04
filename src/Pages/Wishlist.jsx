@@ -79,6 +79,10 @@ const Button=styled.button`
     flex:1;
     display: flex;
     align-items: center;
+    cursor:pointer;
+    &:hover{
+        background-color: green;
+    }
 `
 const DeleteBtn=styled.div`
     position: absolute;

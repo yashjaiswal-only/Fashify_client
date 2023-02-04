@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Navbar from "../components/Navbar"
 import Announcement from "../components/Announcement"
 import Footer from "../components/Footer"
-import { Add, Remove,Delete } from "@mui/icons-material"
+import { Add, Remove,Delete, CleaningServices } from "@mui/icons-material"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import {Link, useNavigate} from "react-router-dom"
@@ -61,7 +61,9 @@ const Cart = () => {
     //         setSdkReady(true);
     //     }}
     // },[pay])
-
+    
+    const d=Date.now();
+    console.log(d)
     const paymentSuccess=(paymentResult)=>{
         console.log(paymentResult);
         // console.log('payled');
@@ -69,9 +71,9 @@ const Cart = () => {
             userId:user._id,
             products:cart.products,
             amount:cart.total,
-            address:paymentResult.payer.address,
-            placed_at:paymentResult.create_time,
-            paymentId:paymentResult.id
+            address:paymentResult.payer?paymentResult.payer.address:"",
+            placed_at:paymentResult?paymentResult.create_time:"",
+            paymentId:paymentResult?paymentResult.id:""
         }
         console.log(order);
         makeOrder(dispatch,user._id,order,user.accessToken);
@@ -81,7 +83,11 @@ const Cart = () => {
 
   return (
     <Container style={pay?{height:'100vh',overflow:'hidden'}:{}}>
-        {pay && <Payment><CancelPayment onClick={()=>setPay(false)}>Cancel Payment</CancelPayment><PayPalButton amount={cart.total} onSuccess={paymentSuccess}/></Payment>}
+        {pay && <Payment>
+            <CancelPayment onClick={()=>setPay(false)}>Cancel Payment</CancelPayment>
+            <Cash onClick={()=>{paymentSuccess({create_time:Date.now()})}}>Make Payment On Delivery</Cash>
+        <PayPalButton amount={cart.total} onSuccess={paymentSuccess}/>
+        </Payment>}
         <Navbar/>
         <Announcement/>
         <Wrapper>
@@ -180,6 +186,14 @@ const NoOrders=styled.div`
 `
 const Container =styled.div`
 `
+const Cash =styled.button`
+    font-size:1rem;
+    padding:0.5rem 2rem;
+    margin: 1rem;
+    cursor:pointer;
+    background-color: black;
+    color:white;
+`
 const CancelPayment =styled.button`
     margin:1rem;
     padding: 1rem;
@@ -188,6 +202,7 @@ const CancelPayment =styled.button`
     font-weight: 600;
     font-size: 1rem;
     border-radius:1rem;
+    curson:pointer;
 `
 const Payment=styled.div`
     /* top:0; */

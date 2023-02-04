@@ -49,17 +49,20 @@ const Order = ({order}) => {
            </TopShow>
 
             <BottomShow>
-                <OrderDate><span style={{color:'gray'}}>Order date</span> : { new Date(order.placed_at).toString().slice(0,15)}</OrderDate>
+                <OrderDate><span style={{color:'gray'}}>Order date</span> : { new Date(order.createdAt).toString().slice(0,15)}</OrderDate>
                 <EstimatedDelivery>
-                    <DeliveryDiningOutlinedIcon sx={{color:'#41e241'}}/>
+                    <DeliveryDiningOutlinedIcon sx={{color:'#008738'}}/>
                      Estimated Delivery : { new Date(Date.now()).toString().slice(0,15)}
                 </EstimatedDelivery>
             </BottomShow>
             </Container>
 
         </AccordionSummary>
-        <AccordionDetails>
+
+        <AccordionDetails sx={{display:'flex',justifyContent:"space-between"}}>
             <hr/>
+            <AccordionDetailsLeft>
+
           <Products>
             {order.products && order.products.map(product=>
                 <Product key={product._id}>
@@ -81,6 +84,10 @@ const Order = ({order}) => {
           <hr/>
           <Total>Total : $ {order.amount}</Total>
           <hr/>
+          </AccordionDetailsLeft>
+
+        <AccordionDetailsRight>
+
           <MoreDetails>
             <Left>
                 <BottomTitle>Payment</BottomTitle>
@@ -102,6 +109,8 @@ const Order = ({order}) => {
                 </Address>
             </Right>
           </MoreDetails>
+        </AccordionDetailsRight>
+            
         </AccordionDetails>
       </Accordion>
     
@@ -109,6 +118,13 @@ const Order = ({order}) => {
   )
 }
 
+const AccordionDetailsRight=styled.div`
+    width:20%;
+    
+`
+const AccordionDetailsLeft=styled.div`
+    width:70%;
+`
 const Container=styled.div`
     width:100%;
     display: flex;
@@ -145,9 +161,9 @@ const OrderDate=styled.div`
 const EstimatedDelivery=styled.div`
     display: flex;
     align-items: center;
-    color:#41e241;
+    color:#008738;
     font-size: 1.1rem;
-    /* font-weight: bold; */
+    font-weight: 600;
 `
 const InvoiceBtn=styled.button`
     background: none;
@@ -176,7 +192,10 @@ const OrderTrackBtn=styled.button`
     border-color:gray;
 `
 
-const Address=styled.div``
+const Address=styled.div`
+    display: flex;
+    align-items: center;
+`
 const PaymentDetails=styled.div`
     display: flex;
     align-items: center;
@@ -187,7 +206,12 @@ const BottomTitle=styled.div`
 `
 const MoreDetails=styled.div`
     display: flex;
+    padding:1rem;
+    flex-direction:column;
     justify-content: space-around;
+    background-color: #f8ffec;
+    border-radius:10%;
+
 `
 const Total=styled.div`
     text-align:center;
@@ -201,6 +225,7 @@ const Left=styled.div`
     justify-content: space-around;
     `
 const Right=styled.div`
+    margin:1rem;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -216,7 +241,7 @@ const Image=styled.img`
     width: 100%;
     `
 const ImageContainer=styled.div`
-    width: 10%;
+    width: 12%;
     margin: 0.5rem;
     background-color: gray;
     border-radius:10%;

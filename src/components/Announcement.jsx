@@ -9,6 +9,7 @@ const Container=styled.div`
     align-items:center;
     font-size:15px;
     font-weight:bold;
+    margin-top:3.5rem;
 `
 const Announcement = () => {
   return (

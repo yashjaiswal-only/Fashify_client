@@ -19,16 +19,13 @@ import { clearOrder } from '../redux/orderRedux.js';
 const Container = styled.div`   
     height:3.5rem;
     background-color: white;
-    position:sticky;
+    display: flex; justify-content: center;
     padding: 0;
     top: 0;
     width: 100vw;
     z-index:900;
-    display: flex; justify-content: center;
-    ${mobile({
-        // height:"30px",
-        // backgroundColor:"red"
-    })}
+    position:fixed; 
+    /* sticky navbar */
 `
 const Wrapper=styled.div`
     padding:0rem 2rem;
@@ -36,24 +33,18 @@ const Wrapper=styled.div`
     width: 95%;
     display:flex;
     justify-content:space-between;
-    ${mobile({
-        padding:"0rem 1rem"  
-    })}
+    
     `;
 const Left=styled.div`
     flex-shrink:1;
     display:flex;
     align-items:center;
-    ${mobile({
-        display:'none'
-    })}
+    
 `;
 const LanguageSelector=styled.div`
     font-size:14;
     cursor:pointer;
-    ${mobile({
-        display:"none"
-    })}
+    
 `
 const SearchContainer=styled.div`
     display:flex;

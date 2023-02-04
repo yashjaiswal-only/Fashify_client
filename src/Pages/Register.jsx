@@ -76,8 +76,11 @@ const Register = () => {
     const [inputs,setInputs]=useState({});
     const [file,setFile]=useState(null);
     const [hasUsername,setHasUsername]=useState(false);
+    const [Required,setRequired]=useState(false);
+    const [checking,setChecking]=useState(false);
     const {isFetching ,error,currentUser} =useSelector(state=>state.user) ;
     //this method is save to protect from 'can't access properties of null 
+
 
     const handleChange=e=>{
       setInputs(prev=>{
@@ -88,13 +91,22 @@ const Register = () => {
     
       const handleClick=async e=>{
         e.preventDefault();
+        setChecking(true);
+        if(!inputs.username || !inputs.password){
+          setRequired(true);
+          setChecking(false);
+          return ;
+        }
+        else setRequired(false);
         const a=await userAvailable(inputs.username) //for getting response then move ahead
         console.log(a);
         if(a.data) {
           setHasUsername(true);
+          setChecking(false);
           return ;
         }
         else setHasUsername(false);
+
         console.log('hii')
       if(file){
         const fileName=new Date().getTime()+file?file.name:'';  //to make file unique as when any file with same name upload later its gonna overwrite because of same name
@@ -126,6 +138,7 @@ const Register = () => {
               // console.log(downloadURL)
               console.log(user);
               console.log('registering')
+              setChecking(false);
               const res=register(dispatch,user);
               if(res)navigate('/login',{state:{newlyRegister:true}});
             });
@@ -135,6 +148,7 @@ const Register = () => {
       else{
         const user={...inputs};
         console.log(user)
+        setChecking(false);
         const res=register(dispatch,user);
         if(res)navigate('/login',{state:{newlyRegister:true}});
       }
@@ -161,11 +175,12 @@ const Register = () => {
                     By creating an account , I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
                 </Agreement>
                 <Bottom>
-                  <Button onClick={handleClick} disabled={isFetching}>CREATE</Button>
-                  {isFetching && <CircularProgress />}
+                  <Button onClick={handleClick} disabled={(isFetching || checking)}>CREATE</Button>
+                  {(isFetching || checking) && <CircularProgress />}
                 </Bottom>
                 {error && <Error>Something went wrong....</Error>}
                 {hasUsername && <Error>Username already exist</Error>}
+                {Required && <Error>Username & password are required</Error>}
 
             </Form>
         </Wrapper>

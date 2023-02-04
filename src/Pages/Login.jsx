@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { login } from '../redux/apiCalls'
 import { CircularProgress, Tooltip } from "@mui/material"
+
 
 
 const Container=styled.div`
@@ -62,7 +63,7 @@ const Button=styled.button`
       cursor:not-allowed;
     }
 `
-const Link=styled.a`
+const URL=styled.a`
     margin: 10px 0px;
     font-size: 12px;
     text-decoration:underline;
@@ -101,8 +102,8 @@ const Login = () => {
                   {isFetching && <CircularProgress />}
                 </Bottom>
                 {error && <Error>Something went wrong....</Error>}
-                <Link to='/register' className='link'>CREATE A NEW ACCOUNT</Link>
-                <Tooltip title='Contact Admin'><Link>DO NOT YOU REMEMBER THE PASSWORD?</Link></Tooltip>
+                <Link to='/register' className='link'><URL>CREATE A NEW ACCOUNT</URL></Link>
+                <Tooltip title='Contact Admin'><URL>DO NOT YOU REMEMBER THE PASSWORD?</URL></Tooltip>
             </Form>
         </Wrapper>
     </Container>
