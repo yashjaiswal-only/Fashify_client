@@ -1,0 +1,20 @@
+go to netlify , sites 
+npm run build
+upload build folder there , bas
+change domain 
+THIS IS FOR STATIC SITES
+
+now get code on github including build 
+import this repo into netlify , then 
+CI= npm run build
+
+in case of dependency conflict
+npm install --save --legacy-peer-deps - on vs code 
+
+on netlify
+Add two new Environment variables key: CI with value: false and key: NPM_FLAGS with value: --legacy-peer-deps
+
+git add .
+git commit -m 'second commit"
+git push origin master (git push -f origin master , if not pushing )
+all the code pushed to master branch goes to netlify

@@ -1,0 +1,24 @@
+to root our components to url , we need react-router-dom
+npm i react-router-dom
+
+to call api in front-end ,we need axios
+npm install axios
+
+npm i @reduxjs/toolkit react-redux (mistake - run this command in  outer folder)
+                        <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
+
+
+npm install react-stripe-checkout
+useHistory is replaced by useNavigate with also accespts state variable
+
+const dotenv=require("dotenv").config();    -- this need in every file we want to use env variable -problem
+npm install dotenv-webpack --save-dev
+
+useSelector -  Allows you to extract data from the Redux store state, using a selector function.
+useDispatch -This hook returns a reference to the dispatch function from the Redux store. You may use it to dispatch actions as needed.
+
+redux state resets on reload - therefore we are using persistedReducer by copying userReducer to it and follow the documentation
+npm i redux-persist
+
+
+git clone --single-branch -b react-admin https://github.com/safak/youtube admin

@@ -1,0 +1,13 @@
+paypal developer account 
+sandbox has 2 api credentials 
+make your app in apps & credentials
+copy client id in .env in common env file
+make a route in index.js in backend
+
+paypal sdk script to get paypal component
+
+add paypal component in cart and get react-paypal-button from npmjs -npm i react-paypal-button-v2 --force (forcefully karna pada)
+
+
+todo 
+add value to paypal , make navbar sticky , navigation from login to signup

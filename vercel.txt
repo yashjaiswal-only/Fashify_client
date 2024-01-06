@@ -1,0 +1,28 @@
+set start at package.json to "node index.js"
+make vercel.json
+{
+    "version":2,
+    "name":"fashify_api",
+    "builds":[{"src":"index.js","use":"@vercel/node"}],
+    "routes":[{"src":"/(.*)","dest":"/index.js"}]
+}
+
+run these command in backend folder
+git init 
+git add .
+git status
+git commit -m "initial"
+
+make new repo in git hub (without readme check box so that we can get quick setup code)
+paste first command from there , and then run git remote , output will be origin
+then last git push origin master - all code goes to github
+
+then go to vercel , add new project and import from github
+give all the environment variables , and simple deploy
+
+at the end its connected now , also at render https://fashify-backend.vercel.app/api , https://fashify-backend.onrender.com
+
+
+git add .
+git commit -m 'second commit"
+git push origin master
